@@ -1,0 +1,5 @@
+CMakeFiles/*
+.idea/*
+CmakeCache.txt
+cmake_install.cmake
+ListLanguage
