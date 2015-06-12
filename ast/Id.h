@@ -9,12 +9,7 @@
 
 namespace ast {
 
-    class Id {
-        std::string _id;
-    public:
-        Id(){};
-        Id(std::string i) : _id(i){}
-    };
+    typedef std::string Id;
 
 }
 

@@ -30,6 +30,12 @@ int scanner::tokenize() {
               case 'f' :
                   tryF();
                   break;
+              case 'm' :
+                  tryM();
+                  break;
+              case 'p' :
+                  tryP();
+                  break;
               case 'i' :
                   tryI();
                   break;
@@ -50,43 +56,43 @@ int scanner::tokenize() {
                       addToken(tokenType::Arrow);
                   }
                   else
-                      addToken(tokenType::MinusOp);
+                      addToken(tokenType::AdditiveOp);
                   break;
               case '+' :
                   token += _ioModule.getChar();
-                  addToken(tokenType::AdditionOp);
+                  addToken(tokenType::AdditiveOp);
                   break;
-              case '*' :
+              case '*':
                   token += _ioModule.getChar();
                   addToken(tokenType::MultiplOp);
                   break;
-              case '/' :
+              case '/':
                   token += _ioModule.getChar();
-                  addToken(tokenType::DivisionOp);
+                  addToken(tokenType::MultiplOp);
                   break;
-              case '%' :
+              case '%':
                   token += _ioModule.getChar();
-                  addToken(tokenType::ModuloOp);
+                  addToken(tokenType::MultiplOp);
                   break;
               case '<' :
                   token += _ioModule.getChar();
                   c = _ioModule.peekChar();
                   if (c == '=') {
                       token += _ioModule.getChar();
-                      addToken(tokenType::LessEqualOp);
+                      addToken(tokenType::RelationalOp);
                   }
                   else
-                      addToken(tokenType::LessOp);
+                      addToken(tokenType::RelationalOp);
                   break;
               case '>' :
                   token += _ioModule.getChar();
                   c = _ioModule.peekChar();
                   if (c == '=') {
                       token += _ioModule.getChar();
-                      addToken(tokenType::MoreEqualOp);
+                      addToken(tokenType::RelationalOp);
                   }
                   else
-                      addToken(tokenType::MoreOp);
+                      addToken(tokenType::RelationalOp);
                   break;
               case '&' :
                   token += _ioModule.getChar();
@@ -158,7 +164,7 @@ int scanner::tokenize() {
                   c = _ioModule.peekChar();
                   if (c == '=') {
                       token += _ioModule.getChar();
-                      addToken(tokenType::NotEqual);
+                      addToken(tokenType::EqualOp);
                   }
                   break;
               default:
@@ -170,11 +176,10 @@ int scanner::tokenize() {
 }
 
 void scanner::addToken(tokenType _type){
-    _tokensTypes.push_back(_type);
-    if(_type < 2)
-        _tokens.push_back(std::);
+    if(_type < 8)
+        _tokens.push_back(std::make_pair(_type, token));
     else
-        _tokens.push_back("");
+        _tokens.push_back(std::make_pair(_type, ""));
 }
 
 void scanner::ignoreWhitespaces() {
@@ -252,6 +257,30 @@ void scanner::tryF(){
                 if(peek == ' '){
                     addToken(tokenType::Func);
                     return;
+                }
+            }
+        }
+    }
+    else if(peek == 'i'){
+        token += _ioModule.getChar();
+        peek = _ioModule.peekChar();
+        if(peek == 'l') {
+            token += _ioModule.getChar();
+            peek = _ioModule.peekChar();
+            if(peek == 't'){
+                token += _ioModule.getChar();
+                peek = _ioModule.peekChar();
+                if(peek == 'e'){
+                    token += _ioModule.getChar();
+                    peek = _ioModule.peekChar();
+                    if(peek == 'r') {
+                        token += _ioModule.getChar();
+                        peek = _ioModule.peekChar();
+                        if(peek == ' ' || peek == '('){
+                            addToken(tokenType::FuncName);
+                            return;
+                        }
+                    }
                 }
             }
         }
@@ -360,8 +389,100 @@ void scanner::tryL(){
             }
         }
     }
+    else if(peek == 'e'){
+        token += _ioModule.getChar();
+        peek = _ioModule.peekChar();
+        if(peek == 'n') {
+            token += _ioModule.getChar();
+            peek = _ioModule.peekChar();
+            if(peek == 'g'){
+                token += _ioModule.getChar();
+                peek = _ioModule.peekChar();
+                if(peek == 't'){
+                    token += _ioModule.getChar();
+                    peek = _ioModule.peekChar();
+                    if(peek == 'h') {
+                        token += _ioModule.getChar();
+                        peek = _ioModule.peekChar();
+                        if(peek == ' ' || peek == '('){
+                            addToken(tokenType::FuncName);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
     tryId();
 }
+
+void scanner::tryP(){
+    char peek;
+    token += _ioModule.getChar();
+    peek = _ioModule.peekChar();
+    if(peek == 'r') {
+        token += _ioModule.getChar();
+        peek = _ioModule.peekChar();
+        if (peek == 'i') {
+            token += _ioModule.getChar();
+            peek = _ioModule.peekChar();
+            if (peek == 'n') {
+                token += _ioModule.getChar();
+                peek = _ioModule.peekChar();
+                if (peek == 't') {
+                    token += _ioModule.getChar();
+                    peek = _ioModule.peekChar();
+                    if (peek == ' ') {
+                        // _ioModule.getChar();
+                        addToken(tokenType::FuncName);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    tryId();
+}
+
+void scanner::tryM(){
+    char peek;
+    token += _ioModule.getChar();
+    peek = _ioModule.peekChar();
+    if(peek == 'e') {
+        token += _ioModule.getChar();
+        peek = _ioModule.peekChar();
+        if (peek == 'r') {
+            token += _ioModule.getChar();
+            peek = _ioModule.peekChar();
+            if (peek == 'g') {
+                token += _ioModule.getChar();
+                peek = _ioModule.peekChar();
+                if (peek == 'e') {
+                    token += _ioModule.getChar();
+                    peek = _ioModule.peekChar();
+                    if(peek == ' ' || peek == '('){
+                        addToken(tokenType::FuncName);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    else if (peek == 'a') {
+        token += _ioModule.getChar();
+        peek = _ioModule.peekChar();
+        if (peek == 'p') {
+            token += _ioModule.getChar();
+            peek = _ioModule.peekChar();
+            if(peek == ' ' || peek == '('){
+                addToken(tokenType::FuncName);
+                return;
+            }
+        }
+    }
+    tryId();
+}
+
 
 void scanner::tryId(){
     if(_ioModule.eof())
@@ -381,7 +502,7 @@ void scanner::tryNumber() {
         peek = _ioModule.peekChar();
     }
     if(peek == '.'){
-        char c = _ioModule.getChar();
+        token+= _ioModule.getChar();
         peek = _ioModule.peekChar();
         while(isdigit(peek) && strchr(symbols, peek) == nullptr){
             token+= _ioModule.getChar();
@@ -395,9 +516,62 @@ void scanner::tryNumber() {
 
 
 void scanner::printTokens(){
-    std::vector<tokenType>::iterator i = _tokensTypes.begin();
-    std::vector<std::string>::iterator j = _tokens.begin();
-    for(i, j; i!=_tokensTypes.end(); ++i, ++j){
-        std::cout << *i << "        " << *j << std::endl;
+   // std::vector<tokenType>::iterator i = _tokensTypes.begin();
+    std::vector<std::pair<tokenType, std::string>>::iterator i = _tokens.begin();
+    for(i; i!=_tokens.end(); ++i){
+        std::cout << (*i).first << "        " << (*i).second << std::endl;
+    }
+}
+
+std::string toString(tokenType& tok){
+    switch(tok){
+        case Int:
+            return "int";
+        case Float:
+            return "float";
+        case AndOp:
+            return "&&";
+        case OrOp:
+            return "||";
+        case AssigOp:
+            return "=";
+        case Comma:
+            return ",";
+        case Dot:
+            return ".";
+        case Colon:
+            return ":";
+        case Semicolon:
+            return ";";
+        case Var:
+            return "var";
+        case If:
+            return "if";
+        case Else:
+            return "else";
+        case For:
+            return "for";
+        case List:
+            return "list";
+        case Func:
+            return "func";
+        case Return:
+            return  "return";
+        case Arrow:
+            return  "->";
+        case ParentheseOpen:
+            return "(";
+        case ParentheseClose:
+            return  ")";
+        case BraceOpen:
+            return  "{";
+        case BraceClose:
+            return "}";
+        case SquareBraceOpen:
+            return "[";
+        case SquareBraceClose:
+            return "]";
+        default:
+            "unknown";
     }
 }

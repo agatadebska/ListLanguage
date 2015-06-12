@@ -8,23 +8,22 @@
 #include "Id.h"
 #include <vector>
 
+#include "Literal.h"
+
 namespace ast {
 
+    class Element{
+        ast::Literal*   _literal = nullptr;
+        ast::Id* _id = nullptr;
+
+    public:
+        Element(std::string& val);
+    };
+
     class Elements {
-
-        class Element{
-            int* _int = nullptr;
-            float* _float = nullptr;
-            ast::Id* _id = nullptr;
-
-        public:
-            Element(int i) : _int(new int(i)){};
-            Element(float f) : _float(new float(f)){}
-            Element(ast::Id id) : _id(new ast::Id(id)){}
-        };
-
-
         std::vector<Element> _elements;
+    public:
+        void addNextElement(Element&);
     };
 }
 

@@ -14,14 +14,25 @@ namespace ast {
 
     class FunctionCall {
         struct Name{
-            ast::FunctionName*  _funcName;
-            ast::Id*            _id;
-        };
+            ast::FunctionName*  _funcName = nullptr;
+            ast::Id*            _id = nullptr;
+
+      //      ~Name();
+        }_name;
         struct Params{
-            ast::Elements*      _elements;
-            ast::Id*            _id;
-            ast::Expression*    _expression;
-        };
+            ast::Elements*      _elements = nullptr;
+            ast::Id*            _id = nullptr;
+            ast::Expression*    _expression = nullptr;
+
+      //      ~Params();
+        }_params;
+    public:
+        FunctionCall(){}
+        //~FunctionCall(){};
+        FunctionCall(ast::Id& id, ast::Elements& elements);
+        FunctionCall(ast::Id& id, ast::Id& id1, ast::Expression& expression);
+        FunctionCall(ast::FunctionName& functionName, ast::Elements& elements);
+        FunctionCall(ast::FunctionName& functionName, ast::Id& id1, ast::Expression& expression);
     };
 }
 

@@ -16,19 +16,13 @@ enum tokenType : int{
     Id,                 // 0
     IntVal,             // 1
     FloatVal,           // 2
+    MultiplOp,          // 3
+    AdditiveOp,         // 4
+    RelationalOp,       // 5
+    EqualOp,            // 6
+    FuncName,           // 7
     Int,
     Float,
-    MultiplOp,
-    DivisionOp,
-    ModuloOp,
-    AdditionOp,
-    MinusOp,
-    MoreOp,             // 10
-    MoreEqualOp,
-    LessOp,
-    LessEqualOp,
-    EqualOp,
-    NotEqual,
     AndOp,
     OrOp,
     AssigOp,
@@ -57,7 +51,7 @@ enum tokenType : int{
 class scanner{
     std::vector<tokenType>  _tokensTypes;
     //std::vector<std::string> _tokens;
-    std::vector<std::pair<tokenType, std::string> _tokens;
+    std::vector<std::pair<tokenType, std::string>> _tokens;
     ioModule    _ioModule;
     std::string token = "";
   //  std::vector<std::string> tokens;
@@ -70,6 +64,8 @@ class scanner{
     void tryE();                //what to do when token starts from 'e'
     void tryR();                //what to do when token starts from 'r'
     void tryL();                //what to do when token starts from 'l'
+    void tryP();
+    void tryM();
     void tryId();
     void tryNumber();
     friend class parser;
@@ -81,6 +77,8 @@ public:
     int tokenize();
 
 };
+
+std::string toString(tokenType& tok);
 
 
 #endif //LISTLANGUAGE_SCANNER_H

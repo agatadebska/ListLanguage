@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
 	ioMod.readData(&line, ';');
 	std::cout << line;
 */
+	std::cout << "press any key to exit" << std::endl;
 	std::string s;
 	getline(std::cin, s);
 	return 0;

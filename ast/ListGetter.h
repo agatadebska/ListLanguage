@@ -12,6 +12,10 @@ namespace ast {
     class ListGetter {
         ast::Id _id;
         int     _index;
+    public:
+        ListGetter(){}
+      //  ~ListGetter(){};
+        ListGetter(ast::Id& id, int& index) : _id(id), _index(index){};
     };
 }
 

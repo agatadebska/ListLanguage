@@ -13,16 +13,6 @@
 
 namespace ast {
 
-    class Parameters{
-        std::vector<ast::Variable>  _variables;
-    };
-
-    class FunctionDeclaration {
-        ast::Id _id;
-        ast::Type*   _type;
-        ast::Parameters     _parameters;
-        ast::Statement _blockStatement;
-    };
 
 
 

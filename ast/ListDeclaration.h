@@ -20,9 +20,17 @@ namespace ast {
             ast::Id *_id;
             ast::Range *_range;
             ast::FunctionCall*  _functionCall;
-        };
+
+     //       ~rightOperand();
+        }_rightOperand;
+
     public:
-        ListDeclaration();
+        ListDeclaration(){};
+     //   ~ListDeclaration(){};
+        ListDeclaration(ast::Variable& variable, ast::Elements& elements);
+        ListDeclaration(ast::Variable& variable, ast::Id& id);
+        ListDeclaration(ast::Variable& variable, ast::Id& id, ast::Range& range);
+        ListDeclaration(ast::Variable& variable, ast::FunctionCall& functionCall);
     };
 }
 

@@ -10,6 +10,10 @@ namespace ast {
     class Range {
         int start;
         int end = -1;
+    public:
+        Range(){}
+        Range(int _start, int _end) : start(_start), end(_end){};
+        Range(int _start) : start(_start){};
     };
 }
 

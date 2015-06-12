@@ -9,23 +9,40 @@
 #include "Operator.h"
 #include "Expression.h"
 #include "ListGetter.h"
+#include "Literal.h"
+#include "FunctionCall.h"
 
 namespace ast {
 
     class AssignVar{
         ast::Id     _id;
         struct rightOperand{
-            int*    _int;
-            float*  _float;
-            ast::Id*    _id;
-            ast::Expression* _expression;
-            ast::ListGetter*    _listGetter;
+            ast::Literal* _literal = nullptr;
+            ast::Id*    _id = nullptr;
+            ast::Expression* _expression = nullptr;
+            ast::ListGetter*    _listGetter = nullptr;
+            ast::FunctionCall*  _functionCall = nullptr;
+      //      ~rightOperand();
         }_rightOperand;
+
+    public:
+        AssignVar(){}
+        AssignVar(ast::Id&, std::string&);              //assign literal or id
+        AssignVar(ast::Id&, ast::Expression&);
+        AssignVar(ast::Id&, ast::ListGetter&);
+        AssignVar(ast::Id&, ast::FunctionCall&);
+        std::string getId();
+     //   ~AssignVar(){};
     };
 
     class VarDeclaration {
         ast::Type   _type;
         ast::AssignVar  _assignVar;
+
+    public:
+        VarDeclaration(){};
+     //   ~VarDeclaration(){};
+        VarDeclaration(ast::Type type, ast::AssignVar assignVar) : _type(type), _assignVar(assignVar){}
 
     };
 }

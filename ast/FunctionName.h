@@ -5,6 +5,8 @@
 #ifndef LISTLANGUAGE_FUNCTIONNAME_H
 #define LISTLANGUAGE_FUNCTIONNAME_H
 
+#include <string>
+
 namespace ast {
 
     enum class FunctionName : int{
@@ -14,6 +16,8 @@ namespace ast {
         Length,
         Print,
     };
+
+    ast::FunctionName functionNameFromString(std::string&);
 }
 
 

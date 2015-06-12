@@ -22,9 +22,9 @@ namespace ast {
 
     enum class RelationalOp : int{
         Less,
-        More,
+        Greater,
         LessEqual,
-        MoreEqual,
+        GreaterEqual,
     };
 
     enum class EqualOp : int{

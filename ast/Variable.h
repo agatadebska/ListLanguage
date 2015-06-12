@@ -10,11 +10,12 @@
 
 namespace ast {
 
-    class Variable {
+    struct Variable {
         ast::Type   _type;
         ast::Id     _id;
-    public:
         Variable(ast::Type t, ast::Id i) : _type(t), _id(i) {}
+        Variable(){}
+     //   ~Variable(){};
     };
 }
 

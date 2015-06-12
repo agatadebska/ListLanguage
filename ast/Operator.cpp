@@ -28,11 +28,11 @@ std::string ast::toString(RelationalOp o){
     switch(o){
         case RelationalOp::Less:
             return "<";
-        case RelationalOp::More:
+        case RelationalOp::Greater:
             return  ">";
         case RelationalOp::LessEqual:
             return "<=";
-        case RelationalOp::MoreEqual:
+        case RelationalOp::GreaterEqual:
             return ">=";
     }
 }
